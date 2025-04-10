@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced DBMS Concepts</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    pre {
+      background-color: #efefef;
+      padding: 10px;
+      border-left: 4px solid #2c3e50;
+      overflow-x: auto;
+    }
+    ul {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Advanced DBMS Theory and Concepts</h1>
+
+  <section>
+    <h2>Constraints in DBMS with SQL Commands</h2>
+    <ul>
+      <li><strong>NOT NULL</strong>: Ensures column cannot have NULL value.</li>
+      <pre>CREATE TABLE Employees (ID INT NOT NULL, Name VARCHAR(100));</pre>
+      <li><strong>UNIQUE</strong>: Ensures all values in a column are different.</li>
+      <pre>CREATE TABLE Users (Email VARCHAR(100) UNIQUE);</pre>
+      <li><strong>PRIMARY KEY</strong>: Uniquely identifies each row.</li>
+      <pre>CREATE TABLE Students (ID INT PRIMARY KEY, Name VARCHAR(100));</pre>
+      <li><strong>FOREIGN KEY</strong>: Enforces referential integrity.</li>
+      <pre>CREATE TABLE Orders (OrderID INT, CustomerID INT,
+  FOREIGN KEY (CustomerID) REFERENCES Customers(ID));</pre>
+      <li><strong>CHECK</strong>: Ensures values meet a specific condition.</li>
+      <pre>CREATE TABLE Products (Price DECIMAL CHECK (Price > 0));</pre>
+      <li><strong>DEFAULT</strong>: Sets a default value.</li>
+      <pre>CREATE TABLE Accounts (Status VARCHAR(20) DEFAULT 'Active');</pre>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Types of Joins in SQL</h2>
+    <ul>
+      <li><strong>INNER JOIN</strong>: Returns matching records from both tables.</li>
+      <pre>SELECT * FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.ID;</pre>
+      <li><strong>LEFT JOIN</strong>: Returns all records from the left table and matching from the right.</li>
+      <pre>SELECT * FROM Orders
+LEFT JOIN Customers ON Orders.CustomerID = Customers.ID;</pre>
+      <li><strong>RIGHT JOIN</strong>: Returns all records from the right table and matching from the left.</li>
+      <pre>SELECT * FROM Orders
+RIGHT JOIN Customers ON Orders.CustomerID = Customers.ID;</pre>
+      <li><strong>FULL OUTER JOIN</strong>: Returns records when there is a match in either table.</li>
+      <pre>SELECT * FROM Orders
+FULL OUTER JOIN Customers ON Orders.CustomerID = Customers.ID;</pre>
+      <li><strong>SELF JOIN</strong>: A table joined with itself.</li>
+      <pre>SELECT A.Name, B.Name FROM Employees A, Employees B
+WHERE A.ManagerID = B.ID;</pre>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Subqueries with SQL Command</h2>
+    <pre>SELECT Name FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);</pre>
+    <p>Returns employees with salary greater than average salary.</p>
+  </section>
+
+  <section>
+    <h2>Views with SQL Command</h2>
+    <pre>CREATE VIEW HighSalary AS
+SELECT Name, Salary FROM Employees WHERE Salary > 50000;
+
+SELECT * FROM HighSalary;</pre>
+    <p>Creates a virtual table showing high earning employees.</p>
+  </section>
+
+  <section>
+    <h2>Exception Handling in SQL</h2>
+    <pre>BEGIN
+  -- SQL statements
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('An error occurred');
+END;</pre>
+    <p>Exception handling is typically done in PL/SQL (Oracle) to catch and respond to errors.</p>
+  </section>
+</body>
+</html>
